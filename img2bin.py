@@ -23,7 +23,7 @@ def main(args: argparse.Namespace) -> None:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Herramienta para formatear laberitons para poder ser resueltos')
+        description='Herramienta para formatear laberintos para poder ser resueltos')
     parser.add_argument(
         'input', help='nombre de la imagen a convertir')
     parser.add_argument(

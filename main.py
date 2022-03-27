@@ -11,7 +11,15 @@ def main(args: argparse.Namespace) -> None:
     pixel_matrix = np.array(img)
 
     start_time = time()
-    path = BFS(tuple(args.start), tuple(args.goal), pixel_matrix)
+    if args.alg == 'bfs':
+        path = BFS(tuple(args.start), tuple(args.goal), pixel_matrix)
+    elif args.alg == 'dfs':
+        path = DFS(tuple(args.start), tuple(args.goal), pixel_matrix)
+    elif args.alg == 'iddfs':
+        if not args.depth:
+            return 'debes especificar la profundidad máxima para este algorimto'
+        path, depth = IDDFS(tuple(args.start), tuple(args.goal), pixel_matrix, args.depth)
+        print('Profundidad:\t{}'.format(depth))
     stop_time = time() - start_time
 
     print('Tiempo:\t{}s'.format(stop_time))
@@ -43,6 +51,10 @@ def main(args: argparse.Namespace) -> None:
     solved_state = Image.fromarray(path_pixels)
     solved_state.save(args.output, format='PNG')
 
+    if args.show:
+        solved_state.show(args.input)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Un solucionador de laberintos')
@@ -56,6 +68,8 @@ if __name__ == '__main__':
         'goal', nargs=2, help='posición del pixel objetivo', type=int)
     parser.add_argument('--alg', '-a', help='algoritmo de búsqueda',
                         choices=('bfs', 'dfs', 'iddfs'), default='bfs')
+    parser.add_argument(
+        '--depth', '-d', help='profundidad para el algoritmo IDDFS', type=int)                        
     parser.add_argument('--show', action='store_true',
                         help='muestra la imagen generada)')
     parser.add_argument('--color', '-c', help='color de la línea',

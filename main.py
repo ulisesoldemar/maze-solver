@@ -7,7 +7,7 @@ from searching_algorithms import *
 
 
 def main(args: argparse.Namespace) -> None:
-    img = Image.open(args.input).convert('RGB')
+    img = Image.open(args.input).convert('L')
     pixel_matrix = np.array(img)
 
     start_time = time()
@@ -17,6 +17,7 @@ def main(args: argparse.Namespace) -> None:
     print('Tiempo:\t{}s'.format(stop_time))
     print('Total de pasos:\t{}'.format(len(path)))
 
+    img = Image.open(args.input).convert('RGB')
     path_pixels = np.array(img)
 
     if args.color == 'RED':

@@ -19,33 +19,32 @@ def check_pixel_color(value: np.ndarray, color: tuple) -> bool:
 
 def adjacent(pos: tuple, limits: tuple) -> tuple:
     row, col = pos
-    i, j = limits
+    y, x = limits
     up, down, left, right = row-1, row+1, col-1, col+1
     valid_moves = []
     if up >= 0:
         valid_moves.append((up, col))  # UP
-    if down < i:
+    if down < y:
         valid_moves.append((down, col))  # DOWN
     if left >= 0:
         valid_moves.append((row, left))  # LEFT
-    if right < j:
+    if right < x:
         valid_moves.append((row, right))  # RIGHT
     if up >= 0 and left >= 0:
         valid_moves.append((up, left))  # UP-LEFT
-    if up >= 0 and right < j:
+    if up >= 0 and right < x:
         valid_moves.append((up, right))  # UP-RIGHT
-    if down < i and left >= 0:
+    if down < y and left >= 0:
         valid_moves.append((down, left))  # DOWN-LEFT
-    if down < i and right < j:
+    if down < y and right < x:
         valid_moves.append((down, right))  # DOWN-RIGHT
     return tuple(valid_moves)
 
 
 def BFS(start: tuple, end: tuple, pixels: np.ndarray) -> list:
-    if check_pixel_color(pixels[start], BLACK):
+    if pixels[start] == 0:
         raise IndexError('posición de inicio invalida {}'.format(start))
-
-    if check_pixel_color(pixels[end], BLACK):
+    if pixels[end] == 0:
         raise IndexError('posición objetivo invalida {}'.format(start))
 
     if start == end:
@@ -58,19 +57,19 @@ def BFS(start: tuple, end: tuple, pixels: np.ndarray) -> list:
         pixel = path[-1]
         if pixel == end:
             return path
-        for adj in adjacent(pixel, pixels.shape[:-1]):
-            if not check_pixel_color(pixels[adj], BLACK):
-                pixels[adj] = BLACK
+        for adj in adjacent(pixel, pixels.shape):
+            if pixels[adj] > 0:
+                pixels[adj] = 0
                 new_path = list(path)
                 new_path.append(adj)
                 queue.put(new_path)
 
 
 def DFS(start: tuple, end: tuple, pixels: np.ndarray) -> list:
-    if check_pixel_color(pixels[start], BLACK):
+    if pixels[start] == 0:
         raise IndexError('posición de inicio invalida {}'.format(start))
 
-    if check_pixel_color(pixels[end], BLACK):
+    if pixels[end] == 0:
         raise IndexError('posición objetivo invalida {}'.format(start))
 
     if start == end:
@@ -83,19 +82,19 @@ def DFS(start: tuple, end: tuple, pixels: np.ndarray) -> list:
         if pixel == end:
             return path
 
-        for adj in adjacent(pixel, pixels.shape[:-1]):
-            if not check_pixel_color(pixels[adj], BLACK):
-                pixels[adj] = BLACK
+        for adj in adjacent(pixel, pixels.shape):
+            if pixels[adj] > 0:
+                pixels[adj] = 0
                 new_path = list(path)
                 new_path.append(adj)
                 stack.append(new_path)
 
 
 def IDDFS(start: tuple, end: tuple, pixels: np.ndarray, max_depth: int) -> tuple:
-    if check_pixel_color(pixels[start], BLACK):
+    if pixels[start] == 0:
         raise IndexError('posición de inicio invalida {}'.format(start))
 
-    if check_pixel_color(pixels[end], BLACK):
+    if pixels[end] == 0:
         raise IndexError('posición objetivo invalida {}'.format(start))
 
     if start == end:
@@ -106,13 +105,13 @@ def IDDFS(start: tuple, end: tuple, pixels: np.ndarray, max_depth: int) -> tuple
     while stack:
         path = stack.pop()
         pixel = path[-1]
-        if check_pixel_color(pixels[pixel], BLACK):
+        if pixels[pixel] == 0:
             continue
 
         depth = depth_stack.pop()
         if depth >= 0:
-            pixels[pixel] = BLACK
-            for adj in adjacent(pixel, pixels.shape[:-1]):
+            pixels[pixel] = 0
+            for adj in adjacent(pixel, pixels.shape):
                 depth_stack.append(depth - 1)
                 if adj == end:
                     return path, max_depth - depth

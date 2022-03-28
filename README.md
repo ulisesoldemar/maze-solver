@@ -10,7 +10,7 @@ Cualquier programa de edición de imágenes te puede ayudar para saberlo.
 Se encuentran 3 laberintos de ejemplo en la carpeta `examples`. Sus coordenadas son:
 1. `maze1.png`: Inicio = (201, 17), Meta = (15, 340)
 2. `maze2.png`: Inicio = (896, 283), Meta = (32, 575)
-3. `maze3.png`: Inicio = (983, 405), Meta = (32, 575)
+3. `maze3.png`: Inicio = (983, 405), Meta = (21, 397)
 
 ### Ejemplo
 ```

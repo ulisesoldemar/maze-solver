@@ -13,10 +13,15 @@ Se encuentran 3 laberintos de ejemplo en la carpeta `examples`. Sus coordenadas 
 3. `maze3.png`: Inicio = (983, 405), Meta = (21, 397)
 
 ### Ejemplo
-```
-python main.py examples/maze1.png examples/maze1_solved 201 17 15 340 --alg=iddfs --depth=10000 --show
-```
-
+* Con Python instalado
+    ```
+    python main.py examples/maze1.png examples/maze1_solved 201 17 15 340 --alg=bfs --show
+    ```
+* Sin Python instalado (para Windows)
+    ```
+    main.exe examples/maze1.png examples/maze1_solved 201 17 15 340 --alg=bfs --show
+    ```
+---
 # img2bin
 Herramienta de formato para imágenes de laberinto.
 
@@ -24,6 +29,11 @@ Herramienta de formato para imágenes de laberinto.
 `python img2bin.py input output`
 
 ## Ejemplo
-```
-python img2bin.py examples/maze3.png examples/maze3_formated.png
-```
+* Con Python instalado
+    ```
+    python img2bin.py examples/maze3.png examples/maze3_formated.png
+    ```
+* Sin Python instalado (para Windows)
+    ```
+    img2bin.exe examples/maze3.png examples/maze3_formated.png
+    ```

@@ -2,6 +2,7 @@
 Solucionador de laberintos mediante los algoritmo BFS, DFS y IDDFS.
 
 ## Uso
+Abrir una línea de comandos y ejecutar:
 ```main.py [-h] [--alg {bfs,dfs,iddfs}] [--depth DEPTH] [--show] [--color {red,green,blue}] [--gif]input output start_y start_x goal_y goal_x```
 
 Es necesario conocer las coordenadas del píxel de inicio y píxel final para utilizar el programa.
@@ -26,7 +27,7 @@ Se encuentran 3 laberintos de ejemplo en la carpeta `examples`. Sus coordenadas 
 Herramienta de formato para imágenes de laberinto.
 
 ## Uso
-`python img2bin.py input output`
+Abrir una línea de comandos y ejecutar: `python img2bin.py input output`
 
 ## Ejemplo
 * Con Python instalado
